@@ -13,6 +13,8 @@ const TopicSchema = new Schema({
     other_value: Number,
     follow: String,
     textarea: Number,
+    answer: Number,
+    score: Number,
     create: Date,
     status: {type: Number, default: 0},
 })
@@ -31,6 +33,8 @@ async function create(params) {
         other_value,
         textarea,
         follow,
+        answer,
+        score,
     } = params;
     const create = Date.now();
     const topic = new TopicModel({
@@ -44,6 +48,8 @@ async function create(params) {
         other_value,
         textarea,
         follow,
+        answer,
+        score,
         create,
     })
     let created = await topic.save()

@@ -12,10 +12,11 @@ const Result = require('../models/mongo/result');
 router.route('/issue')
     .post(auth(), (req, res, next) => {
         (async () => {
-            const {issue, remark, title} = req.body;
+            const {issue, remark, title, issueType} = req.body;
             const created = await Issue.create({
                 issue,
                 title,
+                issueType,
                 remark,
             })
             return {
@@ -135,6 +136,8 @@ router.route('/topic')
                 other_value,
                 textarea,
                 multi,
+                answer,
+                score,
             } = req.body
             const topic = await Topic.create({
                 issue_id,
@@ -147,6 +150,8 @@ router.route('/topic')
                 other_value,
                 textarea,
                 multi,
+                answer,
+                score,
             })
             return {
                 code: 0,
@@ -186,6 +191,8 @@ router.route('/topic/list')
                     multi,
                     follow,
                     textarea,
+                    answer,
+                    score,
                 } = item;
                 const followJSON = !!follow ? JSON.parse(follow) : undefined;
                 const options = await Option.getOptionsByTopicId(_id);
@@ -202,6 +209,8 @@ router.route('/topic/list')
                     multi,
                     follow: followJSON,
                     textarea,
+                    answer,
+                    score,
                     options,
                 }
             })
@@ -209,6 +218,7 @@ router.route('/topic/list')
             return {
                 code: 0,
                 data: {
+                    issue,
                     list,
                 }
             }
@@ -225,6 +235,7 @@ router.route('/topic/list')
     .post(auth(), (req, res, next) => {
         (async () => {
             const { issue_id } = req.body;
+            const issue = await Issue.getIssueById(issue_id);
             const listproto = await Topic.getListByIssueId(issue_id);
             const promises = listproto.map(async (item, index) => {
                 const {
@@ -240,6 +251,8 @@ router.route('/topic/list')
                     multi,
                     follow,
                     textarea,
+                    answer,
+                    score,
                 } = item;
                 const followJSON = !!follow ? JSON.parse(follow) : undefined;
                 const options = await Option.getOptionsByTopicId(_id);
@@ -256,6 +269,8 @@ router.route('/topic/list')
                     multi,
                     follow: followJSON,
                     textarea,
+                    answer,
+                    score,
                     options,
                 }
             })
@@ -263,6 +278,7 @@ router.route('/topic/list')
             return {
                 code: 0,
                 data: {
+                    issue,
                     list,
                 }
             }    

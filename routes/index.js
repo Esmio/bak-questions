@@ -7,12 +7,12 @@ const JWT_SECRET = require('../cipher').JWT_SECRET;
 const apiRouter = require('./api');
 const userRouter = require('./users');
 
-// router.options('/api/*', cors()); // 开发用
+router.options('/api/*', cors()); // 开发用
 router.use('/api', apiRouter);
 
 router.use('/users', userRouter);
 
-// router.options('/login', cors()); // 开发用
+router.options('/login', cors()); // 开发用
 router.post('/login', (req, res, next) => {
     (async () => {
         if(!req.body.password) throw new Error('密码不能为空');

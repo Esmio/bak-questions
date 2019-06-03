@@ -8,6 +8,7 @@ const IssueSchema = new Schema({
     title: String,
     remark: String,
     create: Date,
+    issue_type: {type: Number, default: 1},
     status: {type: Number, default: 0},
 })
 
@@ -17,6 +18,7 @@ async function create(params) {
     let {
         issue,
         title,
+        issueType,
         remark,
         create,
     } = params;
@@ -26,6 +28,7 @@ async function create(params) {
     const question = new IssueModel({
         issue,
         title,
+        issue_type: issueType,
         remark,
         create,
     })
