@@ -137,6 +137,7 @@ router.route('/topic')
                 textarea,
                 multi,
                 answer,
+                multi_answer,
                 score,
             } = req.body
             const topic = await Topic.create({
@@ -151,6 +152,7 @@ router.route('/topic')
                 textarea,
                 multi,
                 answer,
+                multi_answer,
                 score,
             })
             return {
@@ -192,6 +194,7 @@ router.route('/topic/list')
                     follow,
                     textarea,
                     answer,
+                    multi_answer,
                     score,
                 } = item;
                 const followJSON = !!follow ? JSON.parse(follow) : undefined;
@@ -210,6 +213,7 @@ router.route('/topic/list')
                     follow: followJSON,
                     textarea,
                     answer,
+                    multi_answer,
                     score,
                     options,
                 }
@@ -252,6 +256,7 @@ router.route('/topic/list')
                     follow,
                     textarea,
                     answer,
+                    multi_answer,
                     score,
                 } = item;
                 const followJSON = !!follow ? JSON.parse(follow) : undefined;
@@ -270,6 +275,7 @@ router.route('/topic/list')
                     follow: followJSON,
                     textarea,
                     answer,
+                    multi_answer,
                     score,
                     options,
                 }

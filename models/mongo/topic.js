@@ -14,6 +14,7 @@ const TopicSchema = new Schema({
     follow: String,
     textarea: Number,
     answer: Number,
+    multi_answer: String,
     score: Number,
     create: Date,
     status: {type: Number, default: 0},
@@ -34,6 +35,7 @@ async function create(params) {
         textarea,
         follow,
         answer,
+        multi_answer,
         score,
     } = params;
     const create = Date.now();
@@ -49,6 +51,7 @@ async function create(params) {
         textarea,
         follow,
         answer,
+        multi_answer,
         score,
         create,
     })
