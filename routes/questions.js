@@ -196,6 +196,7 @@ router.route('/topic/list')
                     answer,
                     multi_answer,
                     score,
+                    audience,
                 } = item;
                 const followJSON = !!follow ? JSON.parse(follow) : undefined;
                 const options = await Option.getOptionsByTopicId(_id);
@@ -215,15 +216,33 @@ router.route('/topic/list')
                     answer,
                     multi_answer,
                     score,
+                    audience,
                     options,
                 }
             })
             const list = await Promise.all(promises);
+            const forNormal = list.filter(item => item.audience === 1);
+            const forStar = list.filter(item => item.audience === 2);
+            const resultForNormal = [];
+            const resultForStar = [];
+            for(let i = 0; i < 20; i++) {
+                const index = Math.floor(Math.random() * (forNormal.length - i));
+                const _index = Math.floor(Math.random() * (forStar.length - i));
+                const [random] = forNormal.splice(index, 1);
+                const [_random] = forStar.splice(_index, 1);
+                resultForNormal.push(random);
+                resultForStar.push(_random);
+            }
+            const _list = resultForNormal.concat(resultForStar);
+            const __list = _list.map((item, index) => {
+                item.number = index + 1;
+                return item;
+            })
             return {
                 code: 0,
                 data: {
                     issue,
-                    list,
+                    list: __list,
                 }
             }
         })()

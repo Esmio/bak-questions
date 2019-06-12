@@ -17,6 +17,7 @@ const TopicSchema = new Schema({
     multi_answer: String,
     score: Number,
     create: Date,
+    audience: Number,
     status: {type: Number, default: 0},
 })
 
@@ -37,6 +38,7 @@ async function create(params) {
         answer,
         multi_answer,
         score,
+        audience,
     } = params;
     const create = Date.now();
     const topic = new TopicModel({
@@ -53,6 +55,7 @@ async function create(params) {
         answer,
         multi_answer,
         score,
+        audience,
         create,
     })
     let created = await topic.save()
