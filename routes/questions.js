@@ -225,7 +225,8 @@ router.route('/topic/list')
             const forStar = list.filter(item => item.audience === 2);
             const resultForNormal = [];
             const resultForStar = [];
-            for(let i = 0; i < 20; i++) {
+            const MAX_NUM = 20;
+            for(let i = 0; i < MAX_NUM; i++) {
                 const index = Math.floor(Math.random() * (forNormal.length - i));
                 const _index = Math.floor(Math.random() * (forStar.length - i));
                 const [random] = forNormal.splice(index, 1);
@@ -235,6 +236,7 @@ router.route('/topic/list')
             }
             const _list = resultForNormal.concat(resultForStar);
             const __list = _list.map((item, index) => {
+                if(!item) return;
                 item.number = index + 1;
                 return item;
             })
